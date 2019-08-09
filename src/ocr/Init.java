@@ -31,7 +31,7 @@ public class Init {
 	
 	
 	
-	public static Map<String, Integer> features;
+	
 	
 	public static void main(String[] args) {
 		
@@ -40,14 +40,91 @@ public class Init {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("If faces type f, if digit then d");
 		String c = sc.nextLine();
+		System.out.println("for perceptron type p, for bayes type b");
+		String classifier = sc.nextLine();
 		sc.close();
+		ArrayList<Integer> _trainLabel = new ArrayList<Integer>();
+		ArrayList<Integer> _validLabel = new ArrayList<Integer>();
+		ArrayList<Integer> _testLabel = new ArrayList<Integer>();
+		
 		boolean isDigit = false;
 		if(c.equals("f")) {
 			readFiles();
+			
+			for(int i = 0; i < trainingLabel.size(); i++) {
+				try {
+					String str = trainingLabel.get(i);
+					int x = Integer.parseInt(str);
+					_trainLabel.add(x);
+				}
+				catch (Exception e){
+					
+				}
+			}
+			
+			for(int i = 0; i < validationLabel.size(); i++) {
+				try {
+					String str = validationLabel.get(i);
+					int x = Integer.parseInt(str);
+					_validLabel.add(x);
+				}
+				catch (Exception e){
+					
+				}
+			}
+			
+			
+			for(int i = 0; i < testLabel.size(); i++) {
+				try {
+					String str = testLabel.get(i);
+					int x = Integer.parseInt(str);
+					_testLabel.add(x);
+				}
+				catch (Exception e){
+					
+				}
+			}
+			
 		}
 		else if(c.equals("d")) {
 			readDigits();
 			isDigit = true;
+			
+			for(int i = 0; i < digitTrainingLabel.size(); i++) {
+				try {
+					String str = digitTrainingLabel.get(i);
+					int x = Integer.parseInt(str);
+					_trainLabel.add(x);
+				}
+				catch (Exception e){
+					
+				}
+			}
+			
+			for(int i = 0; i < digitValidationLabel.size(); i++) {
+				try {
+					String str = digitValidationLabel.get(i);
+					int x = Integer.parseInt(str);
+					_validLabel.add(x);
+				}
+				catch (Exception e){
+					
+				}
+			}
+			
+			
+			for(int i = 0; i < digitLabel.size(); i++) {
+				try {
+					String str = digitLabel.get(i);
+					int x = Integer.parseInt(str);
+					_testLabel.add(x);
+				}
+				catch (Exception e){
+					
+				}
+			}
+			
+			
 		}
 		else {
 			System.out.println("Wrong char entered returning");
@@ -55,9 +132,20 @@ public class Init {
 		}
 		
 		
+		
+		
+		
 		ArrayList<int[][]> training = findFeatures(isDigit, 1);
 		ArrayList<int[][]> validation  = findFeatures(isDigit, 2);
 		ArrayList<int[][]> test = findFeatures(isDigit, 3);
+		
+		if(classifier.equals("p")) {
+			perceptron p = new perceptron(training, _trainLabel, validation, _validLabel, test, _testLabel);
+		}
+		else {
+			
+		}
+		
 		
 		System.out.println("");
 		
@@ -505,4 +593,13 @@ public class Init {
 		
 		return map;
 	}
+
+
+
+
+
+	
+
+
+
 }

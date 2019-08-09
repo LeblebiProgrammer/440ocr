@@ -16,3 +16,6 @@ xcuserdata
 # svn & cvs
 .svn
 CVS
+bin/ocr/Init.class
+bin/ocr/naivebayes.class
+bin/ocr/perceptron.class
